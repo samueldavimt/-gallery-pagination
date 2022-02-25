@@ -1,0 +1,177 @@
+
+body{
+    background-color: #262626;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+    max-width: 1200px;
+    margin: 30px auto;
+    text-align: center;
+   
+    padding: 10px;
+    position: relative;
+}
+
+.container h2{
+    margin: 30px 0px;
+    font-size: 28px;
+}
+.containerCards{
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.gallery{
+   border: 10px solid white;
+    margin: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    box-shadow: 4px 4px 5px black;
+}
+
+.gallery h3{
+     position: absolute;
+    background-color: rgba(0, 0, 0, 0.671);
+    width: 100%;
+    color: white;
+    bottom: 0;
+    text-align: left;
+    padding: 5px 10px;
+}
+
+.gallery .img{
+    width: 100%;
+    height: 250px;
+}
+
+.gallery .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.gallery .infoPosts{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    background-color:rgba(0, 0, 0, 0.788) ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    overflow:hidden ;
+    transition: 0.3s;
+    height: 0;
+}
+
+div.controls{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.buttons{
+    width: 95px;
+    display: flex;
+    overflow-x: hidden;
+    margin: 0px 4px;
+    margin-left: -0.5px;
+
+}
+.container_buttons{
+    display: flex;
+    transition: 0.3s;
+}
+.buttons span, #prev,#next{
+    background-color: white;
+    color: black;
+    padding: 5px 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0px 3px;
+}
+
+.buttons span{
+    width: 26px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    margin: 0px 2px;
+}
+.buttons span:hover, #prev:hover,#next:hover{
+    transition: 0.2s;
+    background-color: wheat;
+}
+
+
+.prev,.next{
+    font-weight: bold;
+    padding: 4.5px 8px;
+    
+}
+
+@keyframes aguarde{
+    0%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
+.aguarde{
+
+    background-color: rgba(0, 0, 0, 0.411);
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 100%;
+    top: 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    overflow: hidden;
+    width: 0px;
+
+}
+
+
+
+.aguarde h1{
+    animation-name: aguarde;
+    animation-duration: 1.5s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+
+.hideAguarde {
+    transition: 0.3s;
+     width: 0px;
+  
+}
+
+.showAguarde {
+    transition: 0.3s;
+     width: 100%;
+
+}
