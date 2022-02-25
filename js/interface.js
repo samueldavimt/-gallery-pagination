@@ -1,14 +1,16 @@
 
 //InfoPosts
-document.querySelectorAll(".gallery").forEach(gallery=>{
-    gallery.addEventListener('mouseout',function(){
-        this.children[2].style.height = '0'
+function addInfoPosts(){
+    document.querySelectorAll(".gallery").forEach(gallery=>{
+        gallery.addEventListener('mouseout',function(){
+            this.children[2].style.height = '0'
+        })
+    
+        gallery.addEventListener('mouseover',function(){
+            this.children[2].style.height = '100%'
+        })
     })
-
-    gallery.addEventListener('mouseover',function(){
-        this.children[2].style.height = '100%'
-    })
-})
+}
 
 // Pagination
 
@@ -124,8 +126,27 @@ const generatecards ={
             let title = document.createElement('h3')
             title.innerHTML = ' Galeria ' +  listGallery[gallery].albumId
 
+            // dataset com a posicao dos posts
+            let positionListPosts = listGallery[gallery].albumId
+            galleryCard.dataset.positionListPosts = positionListPosts
+            
+            // numero de postagens na galeria
+            let numPosts = generateLists.listGalleryPosts[positionListPosts -1].length
+
+            console.log('NumPosts',numPosts)
+
+            let infoPosts = document.createElement('div')
+            infoPosts.classList.add('infoPosts')
+
+            let textInfoPost = document.createElement('p')
+            textInfoPost.innerHTML = `${numPosts} Posts`
+            infoPosts.appendChild(textInfoPost)
+
+            
+
             galleryCard.appendChild(title)
             galleryCard.appendChild(divImg)
+            galleryCard.appendChild(infoPosts)
             // gallery.dataset.positionList = listCoverCards[card].albumId - 1
             // gallery.addEventListener('click',viewInsideCards.viewPosts)
 
@@ -237,12 +258,15 @@ const states = {
 
     update(){
         states.parseCards()
+        update()
+        
     }
 
 
 
 }
 
+// colorir botoes
 
 const colorButtons = {
     
@@ -267,4 +291,8 @@ const colorButtons = {
         buttons.children[states.currentPage - 1].style.backgroundColor = 'gray'
 
     }
+}
+
+function update(){
+    addInfoPosts()
 }

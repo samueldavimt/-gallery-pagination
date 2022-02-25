@@ -54,7 +54,9 @@ async function init(){
     let totalPages = generateLists.listCoverGallery.length / states.perPage
     states.updateTotalPages(totalPages)
     states.updateConfigParse('gallerys',generateLists.listCoverGallery)
+    update()
 
 }
 
 init()
+
