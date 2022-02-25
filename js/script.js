@@ -53,6 +53,7 @@ async function init(){
     await dumpCards()
     let totalPages = generateLists.listCoverGallery.length / states.perPage
     states.updateTotalPages(totalPages)
+    states.updateConfigParse('gallerys',generateLists.listCoverGallery)
 
 }
 

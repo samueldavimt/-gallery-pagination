@@ -17,6 +17,8 @@ let buttons = document.querySelectorAll('.container_buttons span')
 
 document.querySelector('#next').addEventListener('click',function(){   
     states.next()
+    colorButtons.colorPrevNext()
+
     if(controlsConfig.verificarLimiteNext()){
       controlsConfig.value -= 30
       controlsConfig.setMarginControl(`${controlsConfig.value}`) 
@@ -25,6 +27,8 @@ document.querySelector('#next').addEventListener('click',function(){
 
 document.querySelector('#prev').addEventListener('click',function(){  
     states.prev()
+    colorButtons.colorPrevNext()
+
   if(controlsConfig.verificarLimitePrev()){
       controlsConfig.value += 30
       controlsConfig.setMarginControl(`${controlsConfig.value}`)    
@@ -151,6 +155,7 @@ const states = {
         if(states.currentPage < 1){
             states.currentPage = states.firstPage
         }
+        states.update()
     },
 
     next(){
@@ -158,10 +163,12 @@ const states = {
         if(states.currentPage > states.totalPages){
             states.currentPage = states.totalPages
         }
+        states.update()
     },
 
     jumpPage(page){
         states.currentPage = page
+        states.update()
     },
 
 
@@ -185,6 +192,7 @@ const states = {
         let buttons = document.querySelectorAll('.container_buttons span')
         buttons.forEach(button=>{
             button.addEventListener('click',function(e){
+                colorButtons.colorButtonClick(buttons, e)
                 buttonsConfig.setMarginButton(e)
                 states.jumpPage(Number(e.target.innerHTML))
             })
@@ -194,8 +202,69 @@ const states = {
         controlsConfig.limite = -(containerButtons.children.length -2) * 30
        
 
+    },
+
+    listParse: null,
+    whatCard: null,
+
+    parseCards(){
+
+        let start = (states.currentPage - 1) * states.perPage
+
+        let end = start + states.perPage
+
+        let parseList = states.listParse.slice(start,end)
+
+        console.log(parseList)
+        if(states.whatCard = 'gallerys'){
+            generatecards.generateGallerys(parseList)
+        }else{
+            generatecards.generatePosts(parseList)
+        }
+
+    },
+
+    listParse: null,
+    whatCard: null,
+
+    updateConfigParse(whatCard, listParse){
+
+        states.listParse = listParse
+        states.whatCard = whatCard
+
+        states.update()
+    },
+
+    update(){
+        states.parseCards()
     }
 
 
 
+}
+
+
+const colorButtons = {
+    
+    colorButtonClick(buttons, button){
+        colorButtons.resetColor(buttons)
+        button.target.style.backgroundColor = 'gray'
+    },
+
+    resetColor(buttons){
+        buttons.forEach(button => {
+            button.style.backgroundColor = 'white'
+        })
+    }
+    ,
+
+    colorPrevNext(){
+        let buttonsList =  document.querySelectorAll('.container_buttons span')
+
+        let buttons = document.querySelector('.container_buttons')
+
+        colorButtons.resetColor(buttonsList)
+        buttons.children[states.currentPage - 1].style.backgroundColor = 'gray'
+
+    }
 }
