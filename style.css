@@ -127,7 +127,7 @@ div.controls{
     
 }
 
-@keyframes aguarde{
+@keyframes wait{
     0%{
         opacity: 1;
     }
@@ -136,14 +136,15 @@ div.controls{
         opacity: 0;
     }
 }
-.aguarde{
+.wait{
 
     background-color: rgba(0, 0, 0, 0.411);
-    position: absolute;
+    position: fixed;
     right: 0;
     left: 0;
     height: 100%;
     top: 0;
+    bottom: 0;
     color: white;
     display: flex;
     align-items: center;
@@ -151,27 +152,28 @@ div.controls{
     font-size: 25px;
     overflow: hidden;
     width: 0px;
+  
 
 }
 
 
 
-.aguarde h1{
-    animation-name: aguarde;
-    animation-duration: 1.5s;
+.wait h1{
+    animation-name: wait;
+    animation-duration: 0.8s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 
-.hideAguarde {
-    transition: 0.3s;
+.hideWait {
      width: 0px;
   
 }
 
-.showAguarde {
-    transition: 0.3s;
+.showWait {
+   
      width: 100%;
 
 }

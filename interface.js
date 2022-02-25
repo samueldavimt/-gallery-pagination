@@ -16,7 +16,7 @@ let containerButtons = document.querySelector('.container_buttons')
 let buttons = document.querySelectorAll('.container_buttons span')
 
 document.querySelector('#next').addEventListener('click',function(){   
-
+    states.next()
     if(controlsConfig.verificarLimiteNext()){
       controlsConfig.value -= 30
       controlsConfig.setMarginControl(`${controlsConfig.value}`) 
@@ -24,7 +24,7 @@ document.querySelector('#next').addEventListener('click',function(){
 })
 
 document.querySelector('#prev').addEventListener('click',function(){  
-
+    states.prev()
   if(controlsConfig.verificarLimitePrev()){
       controlsConfig.value += 30
       controlsConfig.setMarginControl(`${controlsConfig.value}`)    
@@ -64,17 +64,138 @@ const controlsConfig = {
 
 const buttonsConfig = {
     
-    setMarginButton(v){
-        let margin = Number(this.innerHTML) * 25
+    setMarginButton(e){
+        console.log('button')
+        let margin = Number(e.target.innerHTML) * 25
         containerButtons.style.marginLeft = `-${margin}px`
         controlsConfig.value = Number(`-${margin}`)
        
     }
 }
 
-buttons.forEach(button=>{
-    button.addEventListener('click',buttonsConfig.setMarginButton)
-
-})
 
 
+// Await
+
+const HideShowWait ={
+    wait: document.querySelector('.wait'),
+
+    hide(){
+        HideShowWait.wait.classList.add('hideWait')
+        HideShowWait.wait.classList.remove('showWait')
+    },
+    show(){
+        HideShowWait.wait.classList.remove('hideWait')
+        HideShowWait.wait.classList.add('showWait')
+    },
+
+    err(){
+        this.wait.children[0].innerHTML = 'Erro ao Carregar galerias'
+    }
+
+    
+}
+
+// generatecards
+
+let containerCards =document.querySelector(".containerCards")
+
+const generatecards ={
+
+
+    generateGallerys(listGallery){
+        containerCards.innerHTML = ''
+        for(let gallery in listGallery){
+          
+            let galleryCard = document.createElement('div')
+            galleryCard.classList.add('gallery')
+
+            let divImg = document.createElement('div')
+            divImg.classList.add('img')
+
+            let img = document.createElement("img")
+            img.src = listGallery[gallery].thumbnailUrl
+            divImg.appendChild(img)
+
+            let title = document.createElement('h3')
+            title.innerHTML = ' Galeria ' +  listGallery[gallery].albumId
+
+            galleryCard.appendChild(title)
+            galleryCard.appendChild(divImg)
+            // gallery.dataset.positionList = listCoverCards[card].albumId - 1
+            // gallery.addEventListener('click',viewInsideCards.viewPosts)
+
+
+
+        containerCards.appendChild(galleryCard)
+        }
+
+
+
+
+
+    }
+}
+
+// Stados da paginacao
+
+const states = {
+    firstPage:1,
+    currentPage: 1,
+    totalPages: null,
+    perPage: 5,
+
+
+    prev(){
+        states.currentPage --
+        if(states.currentPage < 1){
+            states.currentPage = states.firstPage
+        }
+    },
+
+    next(){
+        states.currentPage ++
+        if(states.currentPage > states.totalPages){
+            states.currentPage = states.totalPages
+        }
+    },
+
+    jumpPage(page){
+        states.currentPage = page
+    },
+
+
+    updateTotalPages(totalPages){
+        states.totalPages = totalPages
+        states.insertButtons()
+    },
+
+    insertButtons(){
+        let containerButtons = document.querySelector('.container_buttons')
+
+        containerButtons.innerHTML = ''
+
+        for(let page=1;page<(states.totalPages +1);page++){
+            let button = document.createElement('span')
+            button.innerHTML = page;
+
+            containerButtons.appendChild(button)
+        }
+
+        let buttons = document.querySelectorAll('.container_buttons span')
+        buttons.forEach(button=>{
+            button.addEventListener('click',function(e){
+                buttonsConfig.setMarginButton(e)
+                states.jumpPage(Number(e.target.innerHTML))
+            })
+        
+        })
+
+        controlsConfig.limite = -(containerButtons.children.length -2) * 30
+       
+
+    }
+
+
+
+}
