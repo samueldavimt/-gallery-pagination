@@ -41,8 +41,7 @@ const controlsConfig = {
     value:0,
     limite: -(containerButtons.children.length -2) * 30,
     verificarLimitePrev(){
-        if(controlsConfig.value > -18){
-            
+        if(controlsConfig.value > -18){  
            return false
 
         }else{
@@ -78,8 +77,6 @@ const buttonsConfig = {
     }
 }
 
-
-
 // Await
 
 const HideShowWait ={
@@ -106,7 +103,6 @@ const HideShowWait ={
 let containerCards =document.querySelector(".containerCards")
 
 const generatecards ={
-
 
     generateGallerys(listGallery){
         containerCards.innerHTML = ''
@@ -152,17 +148,8 @@ const generatecards ={
 
             galleryCard.addEventListener('click',generatecards.openGallery)
 
-            // gallery.dataset.positionList = listCoverCards[card].albumId - 1
-            // gallery.addEventListener('click',viewInsideCards.viewPosts)
-
-
-
-        containerCards.appendChild(galleryCard)
+            containerCards.appendChild(galleryCard)
         }
-
-
-
-
 
     },
 
@@ -232,12 +219,6 @@ const generatecards ={
 
     },
 
-    redirectPost(gallery,id){
-
-
-    }
-
-
 }
 
 // Stados da paginacao
@@ -302,7 +283,6 @@ const states = {
 
         states.resetControlsConfig()
        
-
     },
 
     resetControlsConfig(){
@@ -333,7 +313,6 @@ const states = {
 
     },
 
-
     updateConfigParse(whatCard, listParse){
         
         states.listParse = listParse;
@@ -346,8 +325,6 @@ const states = {
     update(){
         states.parseCards()
     }
-
-
 
 }
 

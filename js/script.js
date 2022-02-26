@@ -12,8 +12,6 @@ async function dumpCards(){
     })
     
     generateLists.generate(req)
-
-
 }
 
 
@@ -42,12 +40,9 @@ const generateLists = {
             generateLists.listCoverGallery.push(c[0])
         }
 
-        /// gerar galerias
-        // generatecards.generateGallerys(generateLists.listCoverGallery)
     }
     
 }
-
 
 
 async function init(){
@@ -57,7 +52,6 @@ async function init(){
     states.updateConfigParse('gallerys',generateLists.listCoverGallery)
     update()
     document.querySelector("#back").addEventListener('click',init)
-
 }
 
 init()
