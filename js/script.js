@@ -36,6 +36,7 @@ const generateLists = {
     },
 
     generateListCoverGallery(){
+        generateLists.listCoverGallery = []
         for(let c of generateLists.listGalleryPosts){
             
             generateLists.listCoverGallery.push(c[0])

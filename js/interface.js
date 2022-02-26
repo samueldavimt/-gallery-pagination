@@ -113,7 +113,7 @@ const generatecards ={
         document.querySelector('#title').innerHTML = 'Galerias'
         document.querySelector('#back').style.display = 'none'
 
-
+        console.log('limpando galeria')
         for(let gallery in listGallery){
           
             let galleryCard = document.createElement('div')
