@@ -42,7 +42,7 @@ const controlsConfig = {
     limite: -(containerButtons.children.length -2) * 30,
     verificarLimitePrev(){
         if(controlsConfig.value > -18){
-            console.log('parou prev')
+            
            return false
 
         }else{
@@ -53,7 +53,7 @@ const controlsConfig = {
     verificarLimiteNext(){
 
         if(controlsConfig.value < controlsConfig.limite){
-            console.log('parou next')
+           
            return false
 
         }else{
@@ -110,6 +110,10 @@ const generatecards ={
 
     generateGallerys(listGallery){
         containerCards.innerHTML = ''
+        document.querySelector('#title').innerHTML = 'Galerias'
+        document.querySelector('#back').style.display = 'none'
+
+
         for(let gallery in listGallery){
           
             let galleryCard = document.createElement('div')
@@ -165,22 +169,27 @@ const generatecards ={
     generatePosts(listPosts){
         
         containerCards.innerHTML = ''
-        
+        document.querySelector('#title').innerHTML = 'Posts'
+        document.querySelector('#back').style.display = 'block'
+
+
         for(let postItem in listPosts){
 
-            let post = document.createElement('div')
+            let post = document.createElement('a')
             post.classList.add('post')
+            post.href = `/posts/galeria${listPosts[postItem].albumId}/${listPosts[postItem].id}`
+            post.setAttribute('target','_blank')
 
             let title = document.createElement('h2')
             title.innerHTML = 'Postagem'
 
-            let divImg = document.createElement('div')
-            divImg.classList.add('img')
+            // let divImg = document.createElement('div')
+            // divImg.classList.add('img')
 
-            let img = document.createElement("img")
+            // let img = document.createElement("img")
             
-            img.src = listPosts[postItem].thumbnailUrl
-            divImg.appendChild(img)
+            // img.src = listPosts[postItem].thumbnailUrl
+            // divImg.appendChild(img)
 
             let divText = document.createElement('div')
             divText.classList.add('text')
@@ -194,9 +203,10 @@ const generatecards ={
 
 
             post.appendChild(title)
-            post.appendChild(divImg)
+            // post.appendChild(divImg)
             post.appendChild(divText)
             post.appendChild(infoGallery)
+
 
             containerCards.appendChild(post)
             
@@ -219,6 +229,11 @@ const generatecards ={
 
         states.updateTotalPages(totalPages)
         states.updateConfigParse('posts',listPosts)
+
+    },
+
+    redirectPost(gallery,id){
+
 
     }
 
@@ -285,9 +300,15 @@ const states = {
         
         })
 
-        controlsConfig.limite = -(containerButtons.children.length -2) * 30
+        states.resetControlsConfig()
        
 
+    },
+
+    resetControlsConfig(){
+        controlsConfig.limite = -(containerButtons.children.length -2) * 30;
+
+        controlsConfig.value = 0
     },
 
     listParse: null,

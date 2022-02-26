@@ -55,6 +55,7 @@ async function init(){
     states.updateTotalPages(totalPages)
     states.updateConfigParse('gallerys',generateLists.listCoverGallery)
     update()
+    document.querySelector("#back").addEventListener('click',init)
 
 }
 

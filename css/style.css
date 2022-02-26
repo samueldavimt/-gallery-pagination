@@ -26,6 +26,7 @@ body{
     align-items: center;
     justify-content: center;
     padding: 10px;
+    justify-content: space-around;
 }
 
 .gallery, .post{
@@ -40,6 +41,7 @@ body{
     position: relative;
     flex-direction: column;
     box-shadow: 4px 4px 5px black;
+  
 }
 
 .gallery h3,.post h3{
@@ -83,6 +85,13 @@ body{
 .post{
     width: 350px;
     height: auto;
+    border: none;
+    box-shadow: none;
+    height: 200px;
+    margin:30px 15px;
+    color: white;
+    text-decoration: none;
+    list-style: none;
 }
 .post h2{
     margin: 10px 0px;
@@ -205,4 +214,19 @@ div.controls{
    
      width: 100%;
 
+}
+
+/* BACK */
+
+#back{
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#back:hover{
+    font-size: 21px;
+    transition: 0.3s;
 }
