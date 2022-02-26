@@ -51,7 +51,6 @@ const controlsConfig = {
     },
 
     verificarLimiteNext(){
-        console.log(controlsConfig.value,controlsConfig.limite)
 
         if(controlsConfig.value < controlsConfig.limite){
             console.log('parou next')
@@ -71,7 +70,7 @@ const controlsConfig = {
 const buttonsConfig = {
     
     setMarginButton(e){
-        console.log('button')
+       
         let margin = Number(e.target.innerHTML) * 25
         containerButtons.style.marginLeft = `-${margin}px`
         controlsConfig.value = Number(`-${margin}`)
@@ -133,7 +132,6 @@ const generatecards ={
             // numero de postagens na galeria
             let numPosts = generateLists.listGalleryPosts[positionListPosts -1].length
 
-            console.log('NumPosts',numPosts)
 
             let infoPosts = document.createElement('div')
             infoPosts.classList.add('infoPosts')
@@ -147,6 +145,9 @@ const generatecards ={
             galleryCard.appendChild(title)
             galleryCard.appendChild(divImg)
             galleryCard.appendChild(infoPosts)
+
+            galleryCard.addEventListener('click',generatecards.openGallery)
+
             // gallery.dataset.positionList = listCoverCards[card].albumId - 1
             // gallery.addEventListener('click',viewInsideCards.viewPosts)
 
@@ -159,7 +160,69 @@ const generatecards ={
 
 
 
+    },
+
+    generatePosts(listPosts){
+        
+        containerCards.innerHTML = ''
+        
+        for(let postItem in listPosts){
+
+            let post = document.createElement('div')
+            post.classList.add('post')
+
+            let title = document.createElement('h2')
+            title.innerHTML = 'Postagem'
+
+            let divImg = document.createElement('div')
+            divImg.classList.add('img')
+
+            let img = document.createElement("img")
+            
+            img.src = listPosts[postItem].thumbnailUrl
+            divImg.appendChild(img)
+
+            let divText = document.createElement('div')
+            divText.classList.add('text')
+
+            let text = document.createElement('p')
+            text.innerHTML = listPosts[postItem].title
+            divText.appendChild(text)
+
+            let infoGallery = document.createElement('h3')
+            infoGallery.innerHTML = `Galeria ${listPosts[postItem].albumId} <span>Id: ${listPosts[postItem].id}</span>`
+
+
+            post.appendChild(title)
+            post.appendChild(divImg)
+            post.appendChild(divText)
+            post.appendChild(infoGallery)
+
+            containerCards.appendChild(post)
+            
+        }
+
+    },
+
+    openGallery(e){
+        let gallery = this;
+        let positionListPosts = gallery.dataset.positionListPosts
+        let listPosts = generateLists.listGalleryPosts[positionListPosts -1]
+      
+       generatecards.displayPosts(listPosts)
+
+    },
+
+    displayPosts(listPosts){
+        
+        let totalPages = Math.ceil(listPosts.length / states.perPage)
+
+        states.updateTotalPages(totalPages)
+        states.updateConfigParse('posts',listPosts)
+
     }
+
+
 }
 
 // Stados da paginacao
@@ -168,7 +231,7 @@ const states = {
     firstPage:1,
     currentPage: 1,
     totalPages: null,
-    perPage: 5,
+    perPage: 6,
 
 
     prev(){
@@ -194,6 +257,7 @@ const states = {
 
 
     updateTotalPages(totalPages){
+       
         states.totalPages = totalPages
         states.insertButtons()
     },
@@ -206,6 +270,7 @@ const states = {
         for(let page=1;page<(states.totalPages +1);page++){
             let button = document.createElement('span')
             button.innerHTML = page;
+           
 
             containerButtons.appendChild(button)
         }
@@ -236,30 +301,29 @@ const states = {
 
         let parseList = states.listParse.slice(start,end)
 
-        console.log(parseList)
-        if(states.whatCard = 'gallerys'){
+        if(states.whatCard == 'gallerys'){
             generatecards.generateGallerys(parseList)
+            update()
         }else{
+            // generatecards.generatePosts(parseList)
             generatecards.generatePosts(parseList)
+           
         }
 
     },
 
-    listParse: null,
-    whatCard: null,
 
     updateConfigParse(whatCard, listParse){
-
-        states.listParse = listParse
-        states.whatCard = whatCard
-
+        
+        states.listParse = listParse;
+        states.whatCard = whatCard;
+        states.currentPage = 1
+        containerButtons.style.marginLeft = '0px'
         states.update()
     },
 
     update(){
         states.parseCards()
-        update()
-        
     }
 
 
